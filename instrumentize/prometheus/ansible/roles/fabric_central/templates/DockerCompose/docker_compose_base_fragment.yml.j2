@@ -1,0 +1,12 @@
+---
+# This install was completed on {{ template_run_date }}
+
+version: '3.5'
+
+networks:
+  default:
+    name: "{{ docker_network_name }}"  
+    external: true
+
+services:
+

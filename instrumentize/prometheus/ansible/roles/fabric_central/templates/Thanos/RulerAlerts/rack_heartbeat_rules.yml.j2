@@ -1,0 +1,35 @@
+groups:
+        - name: Heartbeat rules
+          rules:
+
+{% for rack in ["amst","atla","brist","bodc","cern","clem","dall","fiu","gatech","gpn","hawi","indi","kans","lbnl","losa","mass","max","mich","ncsa","newy","podc","prin","psc","renc","rutg","salt","seat","sri","star","tacc","toky","ucsd","uky","utah","wash"] %}          
+                  - alert: RackHeartbeatMissing
+                    expr: absent ( {alertname="PrometheusAlertmanagerHeartbeat", rack="{{ rack }}"} )
+                    for: 1m
+
+{% raw %}
+                    labels:
+                        source: thanos_ruler
+                        fabric_response: mf
+                        rack_to_check: "{{ $labels.instance }}"
+                        rack_checked: "{{ $labels.rack }}"
+                    annotations:
+                        summary: "Heartbeat missing for rack {{ $labels.rack }}"
+                        description: "Heartbeat missing for rack {{ $labels.rack }}"
+{% endraw %}
+{% endfor %}
+
+{% raw %}
+                  - alert: AlertsUnableToReachAlertmanager
+                    expr: increase(prometheus_notifications_errors_total[1d]) > 0
+                    for: 1d
+                    labels:
+                        source: thanos_ruler
+                        fabric_response: mf
+                        rack_to_check: "{{ $labels.instance }}"
+                        rack_checked: "{{ $labels.rack }}"
+                    annotations:
+                        summary: "{{ $labels.rack }} is not able to reach the Alertmanager."
+                        discription: "{{ $labels.rack }} alerts are not able to reach the Alertmanager."
+
+{% endraw %}
