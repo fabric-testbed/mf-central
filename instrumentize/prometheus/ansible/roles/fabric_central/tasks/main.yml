@@ -6,6 +6,13 @@
 #   central metrics site.
 
 
+- name: Get Parsed Files 
+  tags:
+  - clone_mf_parsers
+  import_tasks: get_mf_parser_files_tasks.yml
+  delegate_to: 127.0.0.1
+
+
 - name: Stop Docker Compose 
   block:
   - name: Check if docker-compose.yml exists 
