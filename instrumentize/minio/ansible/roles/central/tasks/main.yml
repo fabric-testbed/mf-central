@@ -12,6 +12,19 @@
 
 
 
+##############################
+#  Node Exporter Install     #
+##############################
+- name: Install node_exporter 
+  # Install the node exporter 
+  block:
+  - name: Install Node_exporter
+    import_tasks: install_node_exporter_tasks.yml
+  when: 
+    - install_node_exporter is defined
+    - install_node_exporter # is true
+  tags:
+    - install_node_exporter
 
 
 - name: Stop Docker Compose 
@@ -33,13 +46,16 @@
 ##############################
 #  Setup OPT/DATA Directory  #
 ##############################
-- name: Install Fabric-Prometheus setup 
-  block:
-  - name: Install Fabric Rack
-    import_tasks: create_mount_data_dir_tasks.yml
-  when: 
-    - mount_data_drive is defined 
-    - mount_data_drive #== yes
+# This ONLY needs to be done once when a new vm is being created to add the data disk.
+# - name: Install Minio Data directory 
+#   block:
+#   - name: Mount Data directory
+#     import_tasks: create_mount_data_dir_tasks.yml
+#   when: 
+#     - mount_data_drive is defined 
+#     - mount_data_drive #== yes
+#   tags: mount_data_drive
+
 
 ################
 #  USER SETUP  #
