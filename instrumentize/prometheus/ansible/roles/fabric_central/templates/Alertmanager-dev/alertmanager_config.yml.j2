@@ -8,10 +8,6 @@ global:
 
   slack_api_url: "{{ alertmanager_slack_api_url_dev_test }}"
 
- 
-  smtp_from: "{{ alertmanager_email_from }}"
-  smtp_smarthost: "{{ alertmanager_smarthost }}"
-
 # The root route on which each incoming alert enters.
 route:
 #  group_by: [...]
@@ -162,20 +158,24 @@ route:
 #### RECIEVERS ####
 receivers:
 
-# Emails
+# Emails 
   - name: monitor_operator
     # Email monitor system operator
     email_configs:
-    - to: '{{ alert_email_monitor_operator }}'
+    - smarthost: '{{ alertmanager_smarthost }}'
+      auth_username: '{{ alertmanager_email_username }}'         
+      auth_password: '{{ alertmanager_email_password }}' 
+      from: '{{ alertmanager_email_from }}' 
+      to: '{{ alertmanager_email_monitor_operator }}'
 
 #  - name: operators
 #    # Email everybody
 #    email_configs:
-#    - to: '{{ alert_email_operators }}'
+#    - to: '{{ alertmanager_email_operators }}'
 #
 #  - name: time_operator
 #    email_configs:
-#    - to: '{{ alert_email_time_operator }}'
+#    - to: '{{ alertmanager_email_time_operator }}'
 
 
 # Slack
