@@ -5,3 +5,5 @@ GF_PATHS_CONFIG=/etc/grafana/custom/custom.ini
 {% if grafana_admin_password is defined %}
 GF_SECURITY_ADMIN_PASSWORD={{ grafana_admin_password }}
 {% endif %}
+
+GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=esnet-networkmap-panel
