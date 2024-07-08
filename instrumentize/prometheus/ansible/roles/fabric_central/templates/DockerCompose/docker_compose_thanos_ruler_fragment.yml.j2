@@ -17,11 +17,11 @@
       # Rule files 
       - "{{ base_install_dir }}/thanos/rules:/etc/thanos/rule_files"
       # Map the node certs for TLS. Required for grpc store endpoint
-      - "/etc/ssl/certs/dev-metrics_fabric-testbed_net.pem:/etc/thanos_certs/cert"
-      - "/etc/pki/tls/private/dev-metrics_fabric-testbed_net.key:/etc/thanos_certs/key"
+      - "{{ thanos_store_cert }}:/etc/thanos_certs/cert:ro"
+      - "{{ thanos_store_key }}:/etc/thanos_certs/key:ro"
       ### Adding persistent data files
       # Persistent data files
-      - "{{ base_data_dir }}/thanos/ruler/:/tmp/thanos/ruler" 
+      - "{{ base_data_dir }}/thanos/ruler/:/thanos/ruler" 
 
     command:
       - 'rule'
@@ -30,7 +30,7 @@
       - '--objstore.config-file=/etc/thanos/object_store_config.yml'
 
       ### adding data-dir so data can be sent to long term object store?
-      - '--data-dir=/tmp/thanos/ruler'  
+      - '--data-dir=/thanos/ruler'  
       - '--eval-interval=30s'
       - '--rule-file=/etc/thanos/rule_files/*_rules.yml'
 #??    --alert.query-url      "http://0.0.0.0:9090" \ # This tells what query URL to link to in UI.
