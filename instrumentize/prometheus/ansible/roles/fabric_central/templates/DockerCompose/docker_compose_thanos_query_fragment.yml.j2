@@ -19,9 +19,11 @@
       - 'query'
       # grpc is not needed, but could be used by a remote system
       #- '--grpc-address=0.0.0.0:10921'
+
       # http called by grafana for datasource
       - '--http-address=0.0.0.0:10922'
       - '--query.replica-label=replica'
+      
       # Connect to local and remote stores. Automatically check stores config file for updates.
       - '--store.sd-files=/etc/thanos_stores/stores.yml'
       - '--store.sd-interval=5m'
@@ -30,6 +32,7 @@
       # Handle certs
       - '--grpc-client-tls-secure'  # use tls to talk to remote store server
       #- '--grpc-client-tls-ca=/etc/thanos_certs/root-ca' # root ca for verifying remote server. I was unable to get igore to work so we must have root ca for all TLS servers. Just combine into a single file if more than one. This makes selfsigned certs pretty much unusable.
+      
       # Thanos finally added the skip option so no longer need to use above cert
       - '--grpc-client-tls-skip-verify'
 

@@ -17,12 +17,21 @@
       - 'store'
       - '--grpc-address=0.0.0.0:10911'
       - '--http-address=0.0.0.0:10912'
+
+      # go back ~6 months
+      - '--min-time=-26w'
+      # let the last 60 days come from racks?
+      - '--max-time=-8w'
+
+      - '--chunk-pool-size=2GB'
+      - '--index-cache-size=250MB'
       - '--data-dir=/thanos/store'
+
       - '--objstore.config-file=/etc/thanos/object_store_config.yml'
       # Unfortunately certs are needed since we have to use TLS everywhere for thanos :(
       - '--grpc-server-tls-cert=/etc/thanos_certs/cert' ##
       - '--grpc-server-tls-key=/etc/thanos_certs/key' ##
-      - '--index-cache-size=32GB'
+      
       - '--log.level=debug'
 
 # Ports are no longer exposed here. Can now use insecure_skip_verify to allow us to use inter-docker networking.

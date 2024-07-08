@@ -31,6 +31,7 @@
 
       ### adding data-dir so data can be sent to long term object store?
       - '--data-dir=/thanos/ruler'  
+      # TODO TEST THIS - '--tsdb.rotation=60d' 
       - '--eval-interval=30s'
       - '--rule-file=/etc/thanos/rule_files/*_rules.yml'
 #??    --alert.query-url      "http://0.0.0.0:9090" \ # This tells what query URL to link to in UI.
