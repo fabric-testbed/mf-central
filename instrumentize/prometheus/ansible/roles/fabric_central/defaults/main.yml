@@ -37,6 +37,8 @@ docker_network_name: "{{ install_name }}"
 base_data_dir: "/opt/data/{{ install_name }}"
 base_install_dir: "/opt/{{ install_name }}" 
 
+tmp_deployment_files: "tmp_deployment_files" 
+
 add_python_docker_sdk: no
 
 prom_user_name: fab-prom
@@ -113,11 +115,20 @@ thanos_alert_rule_file_dir: files/alert_rules/thanos_ruler
 thanos_ruler_files: []
 #  - test_rules.yml
   #- rack_heartbeat_rules.yml
-   
+
+thanos_ruler_files_list:
+  - name: dataplane bit rules
+    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/2024-06-21_15-39/2024-06-21_15-39_dataplane_bits_rules.yml 
+    dst_filename: dataplane_bits_rules.yml
+  - name: dataplane bit alert rules 
+    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/2024-06-21_15-39/2024-06-21_15-39_dataplane_bits_alert_rules.yml 
+    dst_filename: dataplane_bits_alert_rules.yml
+
 thanos_alert_rule_template_dir: templates/Thanos/RulerAlerts
 thanos_ruler_templates: 
   #- ruler_isadj_state.yml
   - rack_heartbeat_rules.yml
+
 
 thanos_cert: "{{ host_cert }}"
 thanos_key: "{{ host_key }}"
