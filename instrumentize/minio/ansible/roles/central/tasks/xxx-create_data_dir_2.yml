@@ -1,0 +1,62 @@
+---
+
+- name: Sanity Check
+  debug: 
+    msg: "!!!!!!!!!!!!!Setting up MinIO Data Dir 2 {{ install_name }} at {{ ansible_host }}.!!!!!!!!!!!!!"
+
+
+##############################
+#  Setup OPT/DATA_2 Directory  #
+##############################
+- name: Install Minio Data 2 Directory
+  block:
+  - name: Mount Data 2 directory
+    import_tasks: create_mount_data_dir_tasks.yml
+  when: 
+    - mount_data_drive_2 is defined 
+    - mount_data_drive_2 #== yes
+
+
+################
+#  USER SETUP  #
+################
+
+# GET USER minio  uid:gid #
+- name: "Get Minio User"
+  block:
+    - name: "Get Fabric Prometheus user ids"
+      getent:
+        database: passwd
+        key: fab-minio
+    - debug:
+       var: ansible_facts.getent_passwd
+
+    - set_fact:
+        minio_user_uid: "{{ getent_passwd['fab-minio'][1] }}"
+        minio_user_gid: "{{ getent_passwd['fab-minio'][2] }}"
+    # the need to assign it to a var so we can use in later
+  become: yes
+
+
+#################
+#   BASE DIRs   #
+#################
+
+- name: Create Base Directories 
+  block:
+
+#################
+#  MINIO DIRs   #
+#################
+- name: Create Minio Directories 
+  block:
+
+  - name: Create Data Directory for Minio
+    file: 
+      path: "{{ base_data_dir }}_2/minio_2/data_2"
+      recurse: yes
+      state: directory 
+      mode: 0755
+      owner: "{{ minio_user_uid }}"
+      group: "{{ minio_user_gid }}"
+    become: yes
