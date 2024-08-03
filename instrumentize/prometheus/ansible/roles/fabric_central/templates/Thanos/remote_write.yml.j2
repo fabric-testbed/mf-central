@@ -1,0 +1,16 @@
+remote_write:
+
+- url: http://{{ install_name }}_thanos_receive:10908/api/v1/receive
+
+- url: https://public-metrics.fabric-testbed.net:9009/api/v1/push
+  headers:
+    X-Scope-OrgID:  {{ public_remote_scope }}
+  
+- url: https://infrastructure-metrics.fabric-testbed.net:9009/api/v1/push
+  headers:
+    X-Scope-OrgID: {{ infrastructure_remote_scope }}
+
+- url: https://research-metrics.fabric-testbed.net:9009/api/v1/push
+  headers:
+    X-Scope-OrgID: {{ research_remote_scope }}
+
