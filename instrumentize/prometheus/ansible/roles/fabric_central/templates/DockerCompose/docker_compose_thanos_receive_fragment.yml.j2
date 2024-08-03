@@ -1,8 +1,8 @@
 
-# Central Thanos - Sidecar
+# Central Thanos - Reciever
 
-  thanos_sidecar:
-    container_name: "{{ install_name }}_thanos_sidecar"
+  thanos_receiver:
+    container_name: "{{ install_name }}_thanos_receive"
 
     image:  quay.io/thanos/thanos:v0.35.0
 
@@ -12,32 +12,34 @@
     volumes:
       # config files
       - "{{ base_install_dir }}/thanos/config/:/etc/thanos/"
-      # Provide access to the promtheus data.
-      - "{{ base_data_dir }}/prometheus:/prometheus"
+      # Provide dir for receive data.
+      - "{{ base_data_dir }}/receive:/receive"
       # Map certs on head node.
-      - "{{ thanos_sidecar_cert }}:/etc/thanos_certs/cert:ro"
-      - "{{ thanos_sidecar_key }}:/etc/thanos_certs/key:ro"
+      - "{{ thanos_receive_cert }}:/etc/thanos_certs/cert:ro"
+      - "{{ thanos_receive_key }}:/etc/thanos_certs/key:ro"
 
     command:
-      - 'sidecar'
-      - '--tsdb.path=/prometheus'
-      - '--prometheus.url=http://{{ install_name }}_prometheus:9090'
-      - '--grpc-address=0.0.0.0:10901'
+      - 'receive'
+      - '--tsdb.path=/receive'
+      - '--grpc-address=0.0.0.0:10907'
 
       - '--grpc-server-tls-cert=/etc/thanos_certs/cert' 
       - '--grpc-server-tls-key=/etc/thanos_certs/key' 
 
-      - '--http-address=0.0.0.0:10902'
+      - '--http-address=0.0.0.0:10909'
       - '--objstore.config-file=/etc/thanos/object_store_config.yml'
       
-      
+      - '--remote-write.address=0.0.0.0:10908'
+       
+      - '--label=receive="{{thanos_receive_label}}"'
+
+
        # Optional debuging
       - '--log.level=info'  # debug, info
       - '--log.format=json' # logfmt logfmt or json                          
       
-# Ports are not exposed since no outside process will be accessing the central metric sidecar.
+# Ports are not exposed since no outside process will be accessing this thanos receiver.
 #    ports:
-#      - "{{ thanos_sidecar_ip | ansible.netcommon.ipwrap +':10901:10901' }}"
 
     logging:
       driver: json-file

@@ -23,6 +23,10 @@
 
 {% include './docker_compose_' + 'thanos_ruler' +  '_fragment.yml.j2' %}
 
+##### THANOS RECIEVE #############################################################
+
+{% include './docker_compose_' + 'thanos_receive' +  '_fragment.yml.j2' %}
+
 ##### ALERTMANAGER #############################################################
 
 {% include './docker_compose_' + 'alertmanager' +  '_fragment.yml.j2' %}

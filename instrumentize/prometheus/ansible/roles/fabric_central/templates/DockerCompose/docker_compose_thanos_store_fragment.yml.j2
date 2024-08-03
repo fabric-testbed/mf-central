@@ -4,6 +4,9 @@
     container_name: "{{ install_name }}_thanos_store"
     image: quay.io/thanos/thanos:v0.35.0
 
+    # TODO move cert local?
+    user: 0:0
+
     volumes:
       # Config files. Same as for Sidecar
       - "{{ base_install_dir }}/thanos/config/:/etc/thanos/"
@@ -20,9 +23,10 @@
 
       # Setup Time Based Partition
       # go back ~6 months
-      - '--min-time=-26w'
+      - '--min-time=-18w' #26w'
       # let the last 60 days come from racks?
-      - '--max-time=-8w'
+      #- '--max-time=-8w'
+      # use default of 0 so we can query everything 
 
       - '--chunk-pool-size=2GB'
       - '--index-cache-size=250MB'

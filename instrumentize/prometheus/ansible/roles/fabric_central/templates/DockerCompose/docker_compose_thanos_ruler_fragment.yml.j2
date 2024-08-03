@@ -9,6 +9,9 @@
 
     image:  quay.io/thanos/thanos:v0.35.0
 
+    # TODO move cert local?
+    user: 0:0
+
     volumes:
       # Map stores.yml file with the list of stores for easier live updates.
       ### NOT NEEDED USE QUERY - "{{ base_install_dir }}/thanos/config/stores.yml:/etc/thanos_stores/stores.yml"
@@ -48,8 +51,15 @@
       # for this ruler to make queries when evaluating rule expressions
       - '--query={{ install_name }}_thanos_query:10922'
 
+
+
+    # remote write
+      - "--remote-write.config-file=/etc/thanos/remote_write.yml"
+
+
       #- "--label=rack=\"\""
-      - "--label=ruler=\"central\""
+      #- "--label=ruler=\"central\""
+      - '--label=ruler="{{thanos_ruler_label}}"'
 
 
 

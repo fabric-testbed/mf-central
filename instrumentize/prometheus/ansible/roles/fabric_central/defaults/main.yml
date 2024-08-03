@@ -150,6 +150,17 @@ thanos_query_cert: "{{ thanos_cert }}"
 thanos_query_key: "{{ thanos_key }}"
 thanos_query_root_ca: "{{ thanos_interm_cert }}"
 
+#### Ruler ####
+thanos_ruler_ip: "{{ ansible_host }}"
+thanos_ruler_cert: "{{ thanos_cert }}"
+thanos_ruler_key: "{{ thanos_key }}"
+
+#### Receive ####
+thanos_receive_ip: "{{ ansible_host }}"
+thanos_receive_cert: "{{ thanos_cert }}"
+thanos_receive_key: "{{ thanos_key }}"
+
+
 
 #### Compact ####
 # Only run in one place

@@ -9,7 +9,11 @@
     - {{ install_name }}_thanos_sidecar:10901
 
     # Thanos Ruler - in docker network
-    - {{ install_name }}_thanos_ruler:10901
+    # No longer used with remote write
+    #- {{ install_name }}_thanos_ruler:10901
+
+    # Thanos Receive - in docker network
+    - {{ install_name }}_thanos_receive:10907
     
     # ping-plus rack
     #- ping-plus.fabric-testbed.net:10911

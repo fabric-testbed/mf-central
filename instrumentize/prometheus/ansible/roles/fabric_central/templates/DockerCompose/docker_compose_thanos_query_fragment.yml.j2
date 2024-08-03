@@ -8,7 +8,8 @@
     container_name: "{{ install_name }}_thanos_query"
 
     image: quay.io/thanos/thanos:v0.35.0
-
+    # TODO move cert local?
+    user: 0:0
     volumes:
       # Map root ca for client certification.
       # nolonger needed with skip-verify  - "{{ thanos_query_root_ca }}:/etc/thanos_certs/root-ca"

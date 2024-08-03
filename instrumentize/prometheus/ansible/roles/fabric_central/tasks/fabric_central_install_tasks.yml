@@ -141,6 +141,16 @@
       include_tasks: Thanos/add_thanos_rules_tasks.yml
       # See vars for templates used
 
+    - name: Thanos Receive remote write file 
+      ansible.builtin.template:
+        src: "templates/Thanos/remote_write.yml.j2"
+        dest: "{{ base_install_dir }}/thanos/config/remote_write.yml"
+        owner: "{{ prom_user_name }}"
+        group: "{{ prom_group_name }}"
+      become: yes
+
+
+
 ####################
 #  ALERTMANAGER    #
 ####################  
