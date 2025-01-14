@@ -17,6 +17,9 @@
       - "{{ nginx_cert }}:/etc/nginx/cert_file:ro"
       # Conf.d files
       - "{{ base_install_dir }}/nginx/conf.d:/etc/nginx/conf.d"
+      # Logs
+      - "/opt/public-metrics/nginx/logs:/var/log/nginx"
+      
     ports: {{ nginx_ip_ports }}
   
 
