@@ -15,16 +15,18 @@
 ##############################
 #  Node Exporter Install     #
 ##############################
-- name: Install node_exporter 
-  # Install the node exporter 
-  block:
-  - name: Install Node_exporter
-    import_tasks: install_node_exporter_tasks.yml
-  when: 
-    - install_node_exporter is defined
-    - install_node_exporter # is true
-  tags:
-    - install_node_exporter
+# Node exporeternow done as service
+
+# - name: Install node_exporter 
+#   # Install the node exporter 
+#   block:
+#   - name: Install Node_exporter
+#     import_tasks: install_node_exporter_tasks.yml
+#   when: 
+#     - install_node_exporter is defined
+#     - install_node_exporter # is true
+#   tags:
+#     - install_node_exporter
 
 
 - name: Stop Docker Compose 
