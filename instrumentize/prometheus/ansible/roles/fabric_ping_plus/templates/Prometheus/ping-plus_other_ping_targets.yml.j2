@@ -6,11 +6,12 @@
 # all phase 1 racks in alpahbetical order ["clem","dall","fiu","gpn","lbnl","mass","max","mich","ncsa","renc","salt","star","tacc","ucsd","uky","utah","wash"] 
 
 # Second phase ? cern,losa,gatech,indi,newy,sri
-
 #cern,clem,dall,fiu,gatech,gpn,indi,lbnl,losa,mass,max,mich,ncsa,newy,renc,salt,sri,star,tacc,ucsd,uky,utah,wash
-{% for hank_name in  ["cern","clem","dall","fiu","gatech","gpn","indi","lbnl", "losa","mass","max","mich","ncsa","newy","renc","salt","sri","star","tacc","ucsd","uky","utah","wash"] %}
+#{% for hank_name in  ["cern","clem","dall","fiu","gatech","gpn","indi","lbnl", "losa","mass","max","mich","ncsa","newy","renc","salt","sri","star","tacc","ucsd","uky","utah","wash"] %}
 
-
+# Final phase 
+#"amst","atla","brist","bodc","cern","clem","dall","edc","eduky","fiu","gatech","gpn","hawi","indi","kans","lbnl","learn","losa","mass","max","mich","podc","ncsa","newy","prin","psc","renc","rutg","salt","seat","sri","star","tacc","toky","ucsd","uky","utah","wash"
+{% for hank_name in ["amst","atla","brist","bodc","cern","clem","dall","edc","eduky","fiu","gatech","gpn","hawi","indi","kans","lbnl","learn","losa","mass","max","mich","podc","ncsa","newy","prin","psc","renc","rutg","salt","seat","sri","star","tacc","toky","ucsd","uky","utah","wash"] %}
 
 # Head Node
 {% for h in groups[hank_name+"_head"] %}
