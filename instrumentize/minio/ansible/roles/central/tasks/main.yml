@@ -129,6 +129,10 @@
       group: "{{ minio_user_gid }}"
     become: yes
 
+  tags:
+    - create_directories
+    - never
+
 
 #################
 #  MINIO DIRs   #
@@ -157,6 +161,11 @@
       owner: "{{ minio_user_uid }}"
       group: "{{ minio_user_gid }}"
     become: yes
+
+
+  tags:
+    - create_directories
+    - never
 
 
 ##################
@@ -190,6 +199,12 @@
       group: "{{ minio_user_gid }}"
     with_items: ["nginx", "nginx/config"]
     become: yes
+
+
+  tags:
+    - create_directories
+    - never
+
 
 ##################
 # NGINX CONFIGs  #
