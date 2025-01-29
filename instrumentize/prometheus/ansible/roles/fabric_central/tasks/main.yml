@@ -9,9 +9,13 @@
 - name: Get Parsed Files 
   tags:
   - clone_mf_parsers
+  - never
   import_tasks: get_mf_parser_files_tasks.yml
   delegate_to: 127.0.0.1
 
+- name: mf parser file names 
+  debug: 
+    msg: "{{ thanos_ruler_files_list }}"
 
 - name: Stop Docker Compose 
   block:
@@ -34,17 +38,6 @@
     import_tasks: fabric_central_install_tasks.yml
 
 
-##############################
-#  Node Exporter Install     #
-##############################
-- name: Install node_exporter 
-  # Install the node exporter on the central 
-  block:
-  - name: Install Node_exporter
-    import_tasks: install_node_exporter_tasks.yml
-  when: 
-    - install_node_exporters is defined
-    - install_node_exporters 
 
 - name: Add Docker Compose file 
   block:
