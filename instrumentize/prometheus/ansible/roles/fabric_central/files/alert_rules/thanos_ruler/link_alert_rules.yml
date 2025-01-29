@@ -1,0 +1,92 @@
+---
+# file: link_alert_rules.yml
+# location: central
+# These rules are designed to catch over used or runaway traffic on dataplane links that have a max size.
+
+groups:
+
+- name: Dataplane link alerts
+  rules:
+
+####################
+#   Four Hundred   #
+####################
+  - alert: FourHundredGbLinkInHeavyUse
+    expr: dataplaneInBits{ max="400000000000", ruler="central"} > ( 400000000000 * .8 )
+    for: 15m
+    labels:
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
+  - alert: FourHundredGbLinkOutHeavyUse
+    expr: dataplaneOutBits{ max="400000000000", ruler="central"} > ( 400000000000 * .8 )
+    for: 15m
+    labels:
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
+
+####################
+#      Hundred     #
+####################
+  - alert: HundredGbLinkInHeavyUse
+    expr: dataplaneInBits{ max="100000000000", ruler="central"} > ( 100000000000 * .8 )
+    for: 15m
+    labels:
+      testing: yes
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
+  - alert: HundredGbLinkOutHeavyUse
+    expr: dataplaneOutBits{ max="100000000000", ruler="central"} > ( 100000000000 * .8 )
+    for: 15m
+    labels:
+      testing: yes
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
+
+
+####################
+#       Ten        #
+####################
+  - alert: TenGbLinkInHeavyUse
+    expr: dataplaneInBits{ max="1000000000", ruler="central"} > ( 1000000000 * .8 )
+    for: 15m
+    labels:
+      testing: yes
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is receiving heavy incoming traffic from {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
+  - alert: TenGbLinkOutHeavyUse
+    expr: dataplaneOutBits{ max="1000000000", ruler="central"} > ( 1000000000 * .8 )
+    for: 15m
+    labels:
+      testing: yes
+      severity: warning
+      fabric_system: network
+      fabric_response: data_net
+    annotations:
+      summary:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+      description:  "{{ $labels.src }} {{ $labels.src_ifName }} is sending heavy traffic to {{ $labels.dst_rack }} {{ $labels.dst_ifName }}"
+
