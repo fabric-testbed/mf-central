@@ -45,6 +45,16 @@
 
 
 
+####################
+#  DOCKER NETWORK  #
+####################
+# note that taking down the network may affect other containers added by other scripts 
+- name: Setup the docker network to be used by the monitoring containers.
+  include_tasks: setup_tasks/setup_docker_ipv6_network_tasks.yml
+
+
+
+
 ##############################
 #  Setup OPT/DATA Directory  #
 ##############################
