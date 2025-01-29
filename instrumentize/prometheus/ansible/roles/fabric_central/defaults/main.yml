@@ -111,18 +111,27 @@ thanos_config_templates:
   # alertmanger urls used by thanos ruler
   - ruler_alertmanagers.yml
 
+# This list is for files that can be stored in the standard files directory
 thanos_alert_rule_file_dir: files/alert_rules/thanos_ruler
 thanos_ruler_files: []
-#  - test_rules.yml
-  #- rack_heartbeat_rules.yml
+  - link_alert_rules.yml
 
+
+mf_parser_date: 2025-01-14_14-40
+
+# This list is for files that are not in the normal files dir.
 thanos_ruler_files_list:
+  # mf-parser files from mf_parser repo need to be cloned (see get_mf_parser_files_tasks.yml) and sent to thanos ruler
   - name: dataplane bit rules
-    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/2024-06-21_15-39/2024-06-21_15-39_dataplane_bits_rules.yml 
+    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/{{ mf_parser_date }}/{{ mf_parser_date }}_dataplane_bits_rules.yml 
     dst_filename: dataplane_bits_rules.yml
   - name: dataplane bit alert rules 
-    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/2024-06-21_15-39/2024-06-21_15-39_dataplane_bits_alert_rules.yml 
+    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/{{ mf_parser_date }}/{{ mf_parser_date }}_dataplane_bits_alert_rules.yml 
     dst_filename: dataplane_bits_alert_rules.yml
+  - name: dataplane isadj alert rules 
+    src_filename: ../../../../ansible/tmp_deployment_files/mf-parsers/p2p/processed_runs/{{ mf_parser_date }}/{{ mf_parser_date }}_dataplane_isadj_alert_rules.yml 
+    dst_filename: dataplane_isadj_alert_rules.yml
+
 
 thanos_alert_rule_template_dir: templates/Thanos/RulerAlerts
 thanos_ruler_templates: 
@@ -206,8 +215,7 @@ blackbox_templates_dir: templates/Blackbox
 ####################
 
 grafana_files_dir: files/Grafana
-grafana_plugin_files: 
-  - flant-statusmap-panel-v0.4.1.tar
+grafana_plugin_files: []
 
 grafana_templates_dir: templates/Grafana
 
