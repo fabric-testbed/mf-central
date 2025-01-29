@@ -1,0 +1,15 @@
+---
+# File: vm_renc_dc_private_node_service_targets.yml
+# Ansible generated node targets for services that are only accessible via private ips
+
+#
+{%  for p in ["control-1", "control-2", "control-3", "control-4", "inventory"] %}
+
+- targets: 
+  - {{ hostvars[p].host_operations_ipv4_address }}
+  labels:
+    instance: {{ p }}.fabric-testbed.net
+    job: node 
+    location: renc_dc
+    type: service 
+

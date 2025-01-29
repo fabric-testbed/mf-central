@@ -253,6 +253,21 @@ scrape_configs:
       - files:
             - '*_node_targets.yml'
 
+
+
+
+# Service Node Exporter
+  - job_name: 'node-service'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    basic_auth:
+      username: '{{ service_node_exporter_username }}'
+      password: '{{ service_node_exporter_password }}'
+    file_sd_configs:
+      - files:
+            - '*_node_service_targets.yml'
+
 # SNMP
   - job_name: 'snmp'
     file_sd_configs:
